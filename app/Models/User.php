@@ -75,7 +75,8 @@ class User extends Authenticatable
      */
     public function gravatar(int $size = 100): string
     {
-        $hash = md5(strtolower(trim($this->attributes['email'])));
-        return "http://www.gravatar.com/avatar/$hash?s=$size";
+//        $hash = md5(strtolower(trim($this->attributes['email'])));
+//        return "http://www.gravatar.com/avatar/$hash?s=$size";
+        return "https://gravatar.zeruns.tech/avatar/";
     }
 }
