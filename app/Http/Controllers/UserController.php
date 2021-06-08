@@ -19,13 +19,23 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required|unique:users|max:50',
-            'email' => 'required|email|unique|max:225',
-            'password' => 'required|confirmed|min:6'
+        try {
+            $this->validate($request, [
+                'name' => 'required|unique:users|max:50',
+                'email' => 'required|email|unique:users|max:225',
+                'password' => 'required|confirmed|min:6'
+            ]);
+        } catch (ValidationException $e) {
+            echo $e;
+        }
+        $user = User::create([
+            'name' => $request->name ?? '',
+            'email' => $request->email ?? '',
+            'password' => bcrypt($request->password ?? '')
         ]);
-        return;
+        session()->flash('success', "欢迎，您将在这里开启一段新的旅程~");
+        return redirect()->route('user.show', [$user]);
     }
 }
