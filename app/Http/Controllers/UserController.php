@@ -8,17 +8,19 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    //
+    //创建用户页面
     public function create()
     {
         return view('users.create');
     }
 
+    //展示用户详细信息
     public function show(User $user)
     {
         return view('users.show', compact('user'));
     }
 
+    //保存用户信息
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         try {
