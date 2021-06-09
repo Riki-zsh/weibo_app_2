@@ -32,8 +32,8 @@ class SessionController extends Controller
             'email' => 'required | email | max:225', //必填 | 验证邮箱 | 最大长度225
             'password' => 'required'
         ]);
-        //attempt校验登录数据 成功返回true 失败返回false
-        if (Auth::attempt($credentials)) {
+        //attempt(用户数组,是否记住登录会话)校验登录数据 成功返回true 失败返回false
+        if (Auth::attempt($credentials,$request->has('remember'))) {
             //校验数据成功后 执行登录逻辑代码
             session()->flash('success', "登录成功,欢迎回来!");
             //登录成功后 可以通过Auth::user 获取当前登录用户的信息 redirect重定向到当前用户详细信息
