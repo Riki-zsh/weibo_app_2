@@ -2,9 +2,9 @@
 <html>
 <head>
   <title>@yield('title', 'Weibo App') - Laravel 入门教程</title>
-{{--  mix()添加哈希值解决浏览器缓存问题--}}
-  <link rel="stylesheet" href=" {{mix('/css/app.css')}}">
+  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
+
 <body>
 @include('layouts._header')
 
@@ -15,5 +15,7 @@
     @include('layouts._footer')
   </div>
 </div>
+
+<script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
