@@ -120,4 +120,19 @@ class UserController extends Controller
         session()->flash('success','个人资料更新完成!');
         return redirect()->route('user.show',$user);
     }
+
+    /**
+     * 删除用户方法
+     * @param User $user
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function destroy(User $user): RedirectResponse
+    {
+        //验证当前用户是是否可以删除策略
+        $this->authorize('destroy',$user);
+        $user->delete();
+        session()->flash('success',"删除成功!");
+        return redirect()->back();
+    }
 }
