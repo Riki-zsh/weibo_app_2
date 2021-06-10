@@ -21,12 +21,18 @@ class UserController extends Controller
         //except 除了指定的方法不需要经过auth验证 其余方法都需要经过中间件验证
         //如果用户没有通过中间件认证 将重定向到登录页面
         $this->middleware('auth',[
-            'except' => ['show','create','store']
+            'except' => ['show','create','store','index']
         ]);
         //guest过滤只有未登录的用户能够访问注册页面
         $this->middleware('guest',[
             'only' => ['create']
         ]);
+    }
+
+    public function index()
+    {
+        $users = User::paginate(6);
+        return \view('users.index',compact('users'));
     }
 
     /**

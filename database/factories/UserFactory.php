@@ -17,7 +17,7 @@ class UserFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
+     *定义一个指定数据模型的模型工厂
      * @return array
      */
     public function definition()
