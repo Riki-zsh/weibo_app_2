@@ -25,6 +25,7 @@ class SessionController extends Controller
      * 登录(创建新会话)
      * @param Request $request
      * @throws ValidationException
+     * @return RedirectResponse
      */
     public function store(Request $request): RedirectResponse
     {
@@ -48,9 +49,11 @@ class SessionController extends Controller
 
     /**
      * 销毁会话,退出登录
+     * @return RedirectResponse
      */
     public function destroy(): RedirectResponse
     {
+        //通过Auth 销毁会话信息
         Auth::logout();
         session()->flash('success', "退出成功!");
         return redirect()->route('login');
