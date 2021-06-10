@@ -14,6 +14,7 @@
 namespace Illuminate\Support\Facades {
 
     use Illuminate\Auth\SessionGuard;
+    use Illuminate\Contracts\Auth\Authenticatable;
 
     /**
      *
@@ -2052,7 +2053,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Log a user into the application.
          *
-         * @param \Illuminate\Contracts\Auth\Authenticatable $user
+         * @param Authenticatable $user
          * @param bool $remember
          * @return void
          * @static
@@ -2245,7 +2246,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Set the current user.
          *
-         * @param \Illuminate\Contracts\Auth\Authenticatable $user
+         * @param Authenticatable $user
          * @return SessionGuard
          * @static
          */
@@ -6821,7 +6822,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get a gate instance for the given user.
          *
-         * @param \Illuminate\Contracts\Auth\Authenticatable|mixed $user
+         * @param Authenticatable|mixed $user
          * @return static
          * @static
          */
