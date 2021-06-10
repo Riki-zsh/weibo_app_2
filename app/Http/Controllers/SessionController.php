@@ -12,6 +12,15 @@ use Auth;
 
 class SessionController extends Controller
 {
+
+    public function __construct()
+    {
+        //guest 过滤只有未登录的用户可以访问的登录页面
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
+
     /**
      * 创建登录页面
      * @return Application|Factory|View
@@ -24,8 +33,8 @@ class SessionController extends Controller
     /**
      * 登录(创建新会话)
      * @param Request $request
-     * @throws ValidationException
      * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -34,11 +43,12 @@ class SessionController extends Controller
             'password' => 'required'
         ]);
         //attempt(用户数组,是否记住登录会话)校验登录数据 成功返回true 失败返回false
-        if (Auth::attempt($credentials,$request->has('remember'))) {
+        if (Auth::attempt($credentials, $request->has('remember'))) {
             //校验数据成功后 执行登录逻辑代码
             session()->flash('success', "登录成功,欢迎回来!");
+            $fallback = route('user.show', Auth::user());
             //登录成功后 可以通过Auth::user 获取当前登录用户的信息 redirect重定向到当前用户详细信息
-            return redirect()->route('user.show', [Auth::user()]);
+            return redirect()->intended($fallback);
         } else {
             //校验数据失败 提示用户信息
             session()->flash('danger', "抱歉,邮箱和密码不匹配或没有此邮箱账号!");
